@@ -7,8 +7,10 @@ const app=express();
 import "dotenv/config"
 import { connectDb } from "./lib/db.js";
 app.use(express.json());
+const PORT=process.env.PORT;
+const FRONTEND_URL=process.env.FRONTEND_URL;
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin:"FRONTEND_URL",
     credentials:true
 }));
 app.use(clerkMiddleware());
