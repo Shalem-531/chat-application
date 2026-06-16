@@ -13,9 +13,7 @@ app.use(cors({
   origin: "*"
 }));
 app.use(clerkMiddleware());
-app.get("/",(req,res)=>{
-    res.send("Hello Shalem")
-})
+
 const publicDir=path.join(process.cwd(),"public");
 if(fs.existsSync(publicDir)){
     app.use(express.static(publicDir))
