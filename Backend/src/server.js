@@ -16,10 +16,7 @@ app.use(clerkMiddleware());
 app.get("/",(req,res)=>{
     res.send("Hello Shalem")
 })
-const PORT=process.env.PORT;
-const FRONTEND_URL=process.env.FRONTEND_URL;
 const publicDir=path.join(process.cwd(),"public");
-
 if(fs.existsSync(publicDir)){
     app.use(express.static(publicDir))
     app.get("/{*any}",(req,res,next) =>{
