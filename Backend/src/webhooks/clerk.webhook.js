@@ -9,16 +9,16 @@ router.post("/", async (req, res) => {
   try {
     
     const signingSecret = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
-     console.log("Secret exists:");
+    console.log("Secret exists:", !!signingSecret);
     if (!signingSecret) {
       return res.status(500).json({ message: "Missing webhook secret" });
-    }
-
+    } 
+    console.log("Before verifyWebhook");
     const evt = await verifyWebhook(req, { signingSecret });
+      console.log("After verifyWebhook");
       console.log("Verified:", evt.type);
 
     const { type, data: u } = evt;
-
     if (type === "user.created" || type === "user.updated") {
       const email =
         u.email_addresses?.find((e) => e.id === u.primary_email_address_id)
