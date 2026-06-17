@@ -13,11 +13,20 @@ router.post("/", async (req, res) => {
     if (!signingSecret) {
       return res.status(500).json({ message: "Missing webhook secret" });
     } 
-    console.log("Before verifyWebhook");
-    const evt = await verifyWebhook(req, { signingSecret });
-      console.log("After verifyWebhook");
-      console.log("Verified:", evt.type);
+      console.log("Before verifyWebhook");
 
+      const payload = Buffer.isBuffer(req.body)
+        ? req.body.toString("utf8")
+        : String(req.body);
+
+      const request = new Request("http://internal/webhooks/clerk", {
+        method: "POST",
+        headers: new Headers(req.headers),
+        body: payload,
+      });
+
+      const evt = await verifyWebhook(request, { signingSecret });
+      console.log("Verified:", evt.type);
     const { type, data: u } = evt;
     if (type === "user.created" || type === "user.updated") {
       const email =
