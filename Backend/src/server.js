@@ -2,11 +2,12 @@ import express from "express";
 import cors from "cors";
 import fs from "fs";
 import path from "path";
-import "dotenv/config";
 import { clerkMiddleware } from "@clerk/express";
+import "dotenv/config";
+
 import job from "./lib/cron.js";
 import { connectDb } from "./lib/db.js";
-import clerkWebhook from './webhooks/clerk.webhook.js'
+import clerkWebhook from "./webhooks/clerk.webhook.js";
 
 const app = express();
 
@@ -15,33 +16,43 @@ const FRONTEND_URL = process.env.FRONTEND_URL;
 
 app.use(cors({
   origin: FRONTEND_URL,
-  credentials: true
+  credentials: true,
 }));
 
-app.use("/api/webhooks/clerk", express.raw({ type: "application/json" }), clerkWebhook);
+app.use(
+  "/api/webhooks/clerk",
+  express.raw({ type: "application/json" }),
+  clerkWebhook
+);
 
 app.use(express.json());
+
 app.use(clerkMiddleware());
+
+app.get("/health", (req, res) => {
+  res.status(200).json({ ok: true });
+});
 
 const publicDir = path.join(process.cwd(), "public");
 
 if (fs.existsSync(publicDir)) {
   app.use(express.static(publicDir));
 
-  app.get("/{*any}", (req, res, next) => {
-    res.sendFile(path.join(publicDir, "index.html"), (err) => next(err));
+  app.get("/{*any}", (req, res) => {
+    res.sendFile(path.join(publicDir, "index.html"));
   });
 }
 
-app.get("/health", (req, res) => {
-  res.status(200).json({ ok: true });
-});
-
 app.listen(PORT, async () => {
   console.log("Server running on", PORT);
-  await connectDb();
 
-  if (process.env.NODE_ENV === "production") {
-    job.start();
+  try {
+    await connectDb();
+    if (process.env.NODE_ENV === "production") {
+      job.start();
+    }
+  } catch (error) {
+    console.error("Database connection failed:", error);
+    process.exit(1);
   }
 });
