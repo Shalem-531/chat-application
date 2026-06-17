@@ -8,7 +8,7 @@ router.post("/", async (req, res) => {
     console.log("WEBHOOK HIT");
   try {
     
-    const signingSecret = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
+    const signingSecret = process.env.CLERK_WEBHOOK_SIGNING_SECREAT;
     console.log("Secret exists:", !!signingSecret);
     if (!signingSecret) {
       return res.status(500).json({ message: "Missing webhook secret" });
