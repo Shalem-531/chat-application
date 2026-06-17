@@ -6,7 +6,9 @@ import {clerkMiddleware} from "@clerk/express";
 const app=express();
 import "dotenv/config"
 import job from "./lib/cron.js";
+import clerkWebhook from "./webhooks/clerk.webhook.js"
 import { connectDb } from "./lib/db.js";
+app.use("/api/webhooks/clerk", express.raw({ type: "application/json" }), clerkWebhook);
 app.use(express.json());
 const PORT=process.env.PORT;
 const FRONTEND_URL=process.env.FRONTEND_URL;
@@ -15,6 +17,7 @@ app.use(cors({
   credentials: true
 }));
 app.use(clerkMiddleware());
+
 
 const publicDir=path.join(process.cwd(),"public");
 if(fs.existsSync(publicDir)){
