@@ -9,7 +9,7 @@ import job from "./lib/cron.js";
 import { connectDb } from "./lib/db.js";
 import clerkWebhook from "./webhooks/clerk.webhook.js";
 
-const app = express();
+import{app,server} from "./lib/socket.js"
 
 const PORT = process.env.PORT;
 const FRONTEND_URL = process.env.FRONTEND_URL;
@@ -43,7 +43,7 @@ if (fs.existsSync(publicDir)) {
   });
 }
 
-app.listen(PORT, async () => {
+server.listen(PORT, async () => {
   console.log("Server running on", PORT);
 
   try {
