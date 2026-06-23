@@ -2,7 +2,7 @@ import React from 'react'
 import { useWallpaper } from "../context/Wallpaper.js";
 import { AuthHeader } from '../components/auth/AuthHeader.jsx';
 import { AuthActionPanel } from '../components/auth/AuthActionPanel.jsx';
-import { AuthHeroPanel } from '../components/auth/AuthHeroPanel.jsx';
+
 export const Authpage = () => {
     const { frameStyle } = useWallpaper();
   return (
@@ -10,7 +10,6 @@ export const Authpage = () => {
       <div className="mx-auto flex w-full max-w-368 flex-1 flex-col overflow-hidden rounded-3xl border border-border bg-background text-foreground">
         <AuthHeader />
         <main className="relative flex flex-1 flex-col overflow-hidden md:flex-row">
-          <AuthHeroPanel />
           <AuthActionPanel />
         </main>
       </div>

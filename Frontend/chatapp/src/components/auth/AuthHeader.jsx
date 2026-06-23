@@ -17,7 +17,9 @@ export const AuthHeader = () => {
 
       <div className="flex shrink-0 items-center gap-0.5">
         <WallpaperPicker />
+
         <ThemePresetPicker />
+        
         <Themetoggle />
       </div>
     </header>
