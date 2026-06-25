@@ -30,8 +30,8 @@ function App() {
       <ThemeProvider>
         <WallpaperProvider>
           <Routes>
-         <Route path="/" element={<Chatpage/>} />
-          <Route path="/auth" element={<Authpage/>}/>
+         <Route path="/" element={isSignedin ? <Chatpage /> : <Navigate to={"/auth"}/>} />
+          <Route path="/auth" element={!isSignedin ? <Authpage /> : <Navigate to={"/"}/>}/>
           </Routes>
           <Toaster/>
         </WallpaperProvider>
