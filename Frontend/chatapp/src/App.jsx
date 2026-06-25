@@ -3,7 +3,7 @@ import { ThemeProvider } from './context/Themecontext';
 import { WallpaperProvider } from './context/Wallpapercontext';
 import { ThemeContext } from './context/Theme.js';
 import {Routes,Route} from "react-router"
-import {Chatpage} from "./pages/Chatpage.jsx"
+import Chatpage from "./pages/Chatpage.jsx"
 import { Authpage } from './pages/Authpage.jsx';
 import {useAuth} from "@clerk/react";
 import { Navigate } from 'react-router';
@@ -30,8 +30,8 @@ function App() {
       <ThemeProvider>
         <WallpaperProvider>
           <Routes>
-            <Route path="/" element={isSignedin ? <Chatpage/> : <Navigate to={"/auth"}/> }></Route>
-             <Route path="/auth" element={!isSignedin ?<Authpage/>: <Navigate to={"/"}/>}></Route>
+         <Route path="/" element={<Chatpage/>} />
+          <Route path="/auth" element={<Authpage/>}/>
           </Routes>
           <Toaster/>
         </WallpaperProvider>

@@ -6,7 +6,8 @@
   "scripts": {
     "build": "(if exist dist rmdir /s /q dist) & mkdir dist & xcopy src\\* dist /E /I /Y",
     "dev": "nodemon src/server.js",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "db:seed":"node src/seeds/user.seed.js"
   },
   "keywords": [],
   "author": "",
