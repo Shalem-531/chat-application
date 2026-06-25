@@ -13,25 +13,25 @@ import { useAuthStore } from './store/useAuthStore.js';
 import { Toaster } from 'react-hot-toast';
 import { useEffect } from 'react';
 function App() {
-  const {isSignedin,isLoaded}=useAuth();
+  const {isSignedIn,isLoaded}=useAuth();
   const clearAuth = useAuthStore((state) => state.clearAuth);
   const checkAuth = useAuthStore((state) => state.checkAuth);
   const isCheckingAuth = useAuthStore((state) => state.isCheckingAuth);
   useEffect(() => {
     if (!isLoaded) return;
 
-    if (isSignedin) checkAuth();
+    if (isSignedIn) checkAuth();
     else clearAuth();
-  }, [checkAuth, clearAuth, isLoaded, isSignedin]);
+  }, [checkAuth, clearAuth, isLoaded, isSignedIn]);
 
-  if (!isLoaded || (isSignedin && isCheckingAuth)) return <PageLoader />;
+  if (!isLoaded || (isSignedIn && isCheckingAuth)) return <PageLoader />;
   return (
     <div>
       <ThemeProvider>
         <WallpaperProvider>
           <Routes>
-         <Route path="/" element={isSignedin ? <Chatpage /> : <Navigate to={"/auth"}/>} />
-          <Route path="/auth" element={!isSignedin ? <Authpage /> : <Navigate to={"/"}/>}/>
+         <Route path="/" element={isSignedIn ? <Chatpage /> : <Navigate to={"/auth"}/>} />
+          <Route path="/auth" element={!isSignedIn ? <Authpage /> : <Navigate to={"/"}/>}/>
           </Routes>
           <Toaster/>
         </WallpaperProvider>
