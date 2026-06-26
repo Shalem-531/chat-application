@@ -4,7 +4,7 @@ import {
   getMessages,
   getUsersForSidebar,
   sendMessage,
-} from "../controllers/message.controller.js";
+} from "../Controllers/message.controller.js"
 import { protectedRoute } from "../middleware/auth.middleware.js";
 import { upload } from "../middleware/upload.middleware.js";
 
