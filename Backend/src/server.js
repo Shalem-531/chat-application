@@ -4,11 +4,11 @@ import fs from "fs";
 import path from "path";
 import { clerkMiddleware } from "@clerk/express";
 import "dotenv/config";
-
 import job from "./lib/cron.js";
 import { connectDb } from "./lib/db.js";
 import clerkWebhook from "./webhooks/clerk.webhook.js";
-
+import messageRoutes from "./routes/message.route.js";
+import authRoutes from "./routes/auth.route.js";
 import{app,server} from "./lib/socket.js"
 
 const PORT = process.env.PORT;
@@ -28,7 +28,8 @@ app.use(
 app.use(express.json());
 
 app.use(clerkMiddleware());
-
+app.use("/api/auth", authRoutes);
+app.use("/api/messages", messageRoutes);
 app.get("/health", (req, res) => {
   res.status(200).json({ ok: true });
 });

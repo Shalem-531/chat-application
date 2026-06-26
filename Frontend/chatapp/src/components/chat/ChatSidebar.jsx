@@ -1,6 +1,6 @@
 import { getInitials, useSelectedConversation } from "../../hooks/useSelectedConversation";
-import { useAuthStore } from "../../store/useAuthStore";
-import { useChatStore } from "../../store/useChatStore";
+import { useAuthStore } from "../../store/useAuthStore.js";
+import { useChatStore } from "../../store/useChatStore.js";
 import { APP_NAME, AppLogo } from "../AppLogo";
 import { UserButton } from "@clerk/react";
 
@@ -28,9 +28,11 @@ function mapUserForList(user, onlineUsers) {
 function ChatSidebar() {
   const conversations = useChatStore((state) => state.conversations);
 
-  console.log(conversations);
+console.log("conversations:", conversations);
+console.log("isArray conversations:", Array.isArray(conversations));
   const users = useChatStore((state) => state.users);
-
+  console.log("users:", users);
+  console.log("isArray users:", Array.isArray(users));
   const searchQuery = useChatStore((state) => state.searchQuery);
   const setSearchQuery = useChatStore((state) => state.setSearchQuery);
 
