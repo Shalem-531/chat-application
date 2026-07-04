@@ -27,6 +27,8 @@ async function uploadChatMedia(file) {
     folder: "/chat",
   });
 
+ console.log("4. ImageKit upload success");
+
   return result.url;
 }
 
