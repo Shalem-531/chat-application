@@ -20,7 +20,7 @@ function createFileName(originalName = "upload") {
  */
 async function uploadChatMedia(file) {
   const fileName = createFileName(file.originalname);
-
+   console.log("uploadChatMedia called");
   const result = await imagekit.files.upload({
     file: file.buffer, // <-- only change
     fileName,
