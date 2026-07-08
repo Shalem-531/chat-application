@@ -1,4 +1,5 @@
 import ImageKit from "@imagekit/nodejs";
+
 const imagekit = new ImageKit({
   privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
   publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
@@ -21,17 +22,11 @@ function createFileName(originalName = "upload") {
  */
 async function uploadChatMedia(file) {
   const fileName = createFileName(file.originalname);
-console.log("PUBLIC:", Boolean(process.env.IMAGEKIT_PUBLIC_KEY));
-console.log("PRIVATE:", Boolean(process.env.IMAGEKIT_PRIVATE_KEY));
-console.log("ENDPOINT:", Boolean(process.env.IMAGEKIT_URL_ENDPOINT));
-   console.log("uploadChatMedia called");
   const result = await imagekit.files.upload({
-    file: file.buffer.toString("base64"), // <-- only change
+    file: file.buffer.toString("base64"), 
     fileName,
     folder: "/chat",
   });
-
- console.log("4. ImageKit upload success");
 
   return result.url;
 }
